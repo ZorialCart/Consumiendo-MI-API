@@ -1,6 +1,66 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2>Usuarios</h2>
-    <button pButton type="button" label="Nueva Usuario" icon="pi pi-plus" class="btn btn-primary" ></button>
+    <button pButton (click)="openDialog()" type="button" label="Nueva Usuario" icon="pi pi-plus" class="btn btn-primary" ></button>
   </div>
 </div>
+<div class="table-responsive">
+  <p-table (value)="usuarios" class="table table-striped table-hover">
+      <ng-template pTemplate="header">
+          <tr>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-usuario>
+          <tr [@fadeInOut]>
+              <td>{{usuario.nombres}}</td>
+              <td>{{usuario.usuario}}</td>
+              <td class="text-center">
+                <button pButton type="button"
+                [label]="usuario.Completada ? 'Si' : 'No'"
+                [class]="usuario.Completada ? 'btb btn-success' : 'btn btn-secondary'"></button>
+              </td>
+              <td class="text-center">
+                <button p pButton type="button" icon="pi pi-pencil" class="btn btn-warning me-2"></button>
+                <button p pButton type="button" icon="pi pi-trash" class="btn btn-danger"></button>
+              </td>
+          </tr>
+      </ng-template>
+  </p-table>
+  <!--Primer Modal de Usuario (PrimeNg)-->
+  <p-dialog header="Usuario" [(visible)]="displayDialog" [modal]="true" [closable]="false" [style]="{width: '400px'}">
+    <form [formGroup]="usuarioForm">
+      <div class="mb-3">
+        <label for="nombre" class="formr-label">Nombres</label>
+        <input id="nombre" PInputText formControlName="names" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="nombre" class="formr-label">Usuario</label>
+        <input id="nombre" PInputText formControlName="userName" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="email" class="formr-label">Contraseña</label>
+        <input id="email" PInputText formControlName="password" class="form-control">
+      </div>
+      <div>
+        <button pButton type="button" label="Cancelar" class="btn btn-secondary me-2" (click)="displayDialog=false"> </button>
+        <button pButton type="submit" label="Guardar" class="btn btn-primary" [disabled]="!usuarioForm.valid"> </button>
+      </div>
+    </form>
+  </p-dialog>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
